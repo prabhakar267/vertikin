@@ -2,7 +2,7 @@
 # @Author: prabhakar
 # @Date:   2016-08-17 22:14:14
 # @Last Modified by:   Prabhakar Gupta
-# @Last Modified time: 2016-08-17 22:48:12
+# @Last Modified time: 2016-08-18 22:36:43
 
 import json
 import os.path
@@ -22,8 +22,8 @@ CORS(app)
 @app.route("/user", methods=['GET'])
 def main():
 	imei_num = request.args.get("imei")
-	new_data = request.args.get("user_data", {})
-	new_data = json.loads(new_data)
+	new_data = request.args.get("user_data", "")
+	# new_data = json.loads(new_data)
 
 
 	file_path = "user_data/" + imei_num
