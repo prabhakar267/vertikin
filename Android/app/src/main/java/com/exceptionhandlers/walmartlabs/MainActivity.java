@@ -128,7 +128,7 @@ public class MainActivity extends AppCompatActivity
             fragment = new search_fragment();
 
         } else if (id == R.id.nav_help) {
-            fragment = new test_fragment();
+            fragment = new help_fragment();
 
         }
 

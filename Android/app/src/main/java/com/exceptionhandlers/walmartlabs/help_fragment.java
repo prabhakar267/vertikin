@@ -1,121 +1,53 @@
 package com.exceptionhandlers.walmartlabs;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Typeface;
-import android.net.Uri;
 import android.net.wifi.WifiManager;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
-import android.widget.BaseAdapter;
 import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.ProgressBar;
-import android.widget.TextView;
-import android.widget.Toast;
 
-
-import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
-public class test_fragment extends Fragment {
+public class help_fragment extends Fragment {
 
     static Activity activity;
 
-    public test_fragment() {}
+    public help_fragment() {}
 
     ListView lv;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.content_main, container, false);
+        View v = inflater.inflate(R.layout.content_help, container, false);
 
-
-        /*Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            public void run() {
-                sendNotification();
-            }
-        }, 30000);
-        */
 
         Button b = (Button) v.findViewById(R.id.click);
         b.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-
-                /*WifiManager m_wm = (WifiManager)activity.getSystemService(Context.WIFI_SERVICE);
-                String m_wlanMacAdd = m_wm.getConnectionInfo().getMacAddress();
-
-                final File file = new File(Environment.getExternalStorageDirectory()
-                        .getAbsolutePath(), "data.txt");
-                Scanner in = null;
-                String whatToSend="";
-                try {
-                    in = new Scanner(file);
-                    while (in.hasNext()) { // iterates each line in the file
-                        String line = in.nextLine();
-                        if(line.length()!=0)
-                        whatToSend+= process(line)+"\n";
-                    }
-
-                    in.close(); // don't forget to close resource leaks
-
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                }
-
-                Log.e("final string",whatToSend+" ");
-
-                Map<String, String > map_final = new HashMap<>();
-
-                map_final.put("user_data",whatToSend);
-                map_final.put("gcm_id",m_wlanMacAdd);
-
-                JSONObject ob = new JSONObject(map_final);
-                Log.e("string is",ob.toString()+" ");*/
-
+               sendNotification();
             }
         });
 

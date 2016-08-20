@@ -1,8 +1,11 @@
 <resources>
-    <string name="app_name">Walmart Labs</string>
+    <string name="app_name">VertiKin</string>
 
-    <string name="navigation_drawer_open">Walmart Labs</string>
-    <string name="navigation_drawer_close">Walmart Labs</string>
+    <string name="navigation_drawer_open">VertiKin</string>
+    <string name="navigation_drawer_close">VertiKin</string>
 
     <string name="action_settings">Settings</string>
+
+
+    <string name="sample">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis efficitur scelerisque justo, in iaculis justo tincidunt nec. Aenean enim magna, semper sodales enim eu, pulvinar elementum ipsum. Vestibulum non sem velit. Fusce nulla nisi, tristique eu mauris nec, pulvinar viverra lectus. Aenean semper id sem sed suscipit. Mauris pulvinar ligula ut semper tristique. Cras auctor dolor non ligula efficitur ultrices. Praesent accumsan magna id arcu lobortis scelerisque. Etiam in pharetra est. Fusce hendrerit maximus elementum. Vestibulum non egestas nibh, molestie tempor ante. Integer vel ex urna. Integer quis nunc venenatis, hendrerit massa quis, pharetra quam. Donec interdum, neque nec maximus feugiat, felis nisl eleifend sapien, quis lacinia sapien ipsum id libero. Sed quam eros, interdum in justo eu, tincidunt pretium sapien.</string>
 </resources>
