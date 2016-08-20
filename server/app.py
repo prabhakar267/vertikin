@@ -2,7 +2,7 @@
 # @Author: prabhakar
 # @Date:   2016-08-17 22:14:14
 # @Last Modified by:   Prabhakar Gupta
-# @Last Modified time: 2016-08-21 02:48:26
+# @Last Modified time: 2016-08-21 03:07:00
 
 import json
 import os.path
@@ -12,7 +12,7 @@ from flask import Flask, request, redirect
 from flask_cors import CORS
 
 from settings import DEBUG
-from constants import GITHUB_REPOSITORY_LINK, DEFAULT_THRESHOLD
+from constants import GITHUB_REPOSITORY_LINK, DEFAULT_THRESHOLD, THRESHOLD_DELTA
 from utils import update_dict, check_prediction
 
 
@@ -20,7 +20,7 @@ app = Flask(__name__)
 CORS(app)
 
 
-@app.route("/user", methods=['GET'])
+@app.route("/update-user", methods=['GET'])
 def main():
 	# # get data from args
 	# imei_num = request.args.get("imei")
@@ -43,7 +43,6 @@ def main():
 		threshold = user_history['threshold']
 
 		data_dict = update_dict(existing_data, new_data)
-
 	else:
 		data_dict = update_dict({}, new_data)
 		threshold = DEFAULT_THRESHOLD
@@ -58,6 +57,36 @@ def main():
 	pickle.dump(user_json, open(file_path, "wb"))
 	
 	return json.dumps(data_dict)
+
+
+@app.route("/change-threshold", methods=['GET'])
+def change_threshold():
+	gcm_id = request.args.get("gcm_id")
+	delta_flag = request.args.get("flag")
+
+	file_path = "user_data/" + gcm_id
+
+	if os.path.isfile(file_path):
+		user_history = pickle.load(open(file_path, "rb"))
+
+		existing_data = user_history['data']
+		threshold = user_history['threshold']
+
+		if delta_flag == 0:
+			new_threshold = threshold - THRESHOLD_DELTA
+		else:
+			new_threshold = threshold + THRESHOLD_DELTA
+
+		user_json = {
+			'data' : existing_data,
+			'threshold' : new_threshold,
+		}
+		
+		pickle.dump(user_json, open(file_path, "wb"))
+
+		return True
+
+	return False
 
 
 @app.errorhandler(404)
