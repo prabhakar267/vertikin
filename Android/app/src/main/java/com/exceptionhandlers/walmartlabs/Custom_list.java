@@ -9,6 +9,7 @@ import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.preference.PreferenceManager;
+import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -89,14 +90,11 @@ public class Custom_list extends BaseAdapter {
                 if (DescriptionText.equals("")) {
                     Description.setText("No description for this item.");
                 } else {
-                    Description.setText(DescriptionText);
+                    Description.setText(Html.fromHtml(Utils.stripHtml(DescriptionText)));
                 }
             }
 
-            // imageLoader.DisplayImage(FeedItems.getJSONObject(position).getJSONObject("volumeInfo").getJSONObject("imageLinks").getString("smallThumbnail"), VideoThumbnail, null);
-
             Picasso.with(context).load(FeedItems.getJSONObject(position).getJSONArray("imageEntities").getJSONObject(0).getString("thumbnailImage")).into(VideoThumbnail);
-            //     Log.e("FeedItem", FeedItems.getJSONObject(position).getJSONObject("volumeInfo").getJSONObject("imageLinks").getString("smallThumbnail") + " ");
         } catch (JSONException e) {
             e.printStackTrace();
             Log.e("eroro",e.getMessage()+" ");

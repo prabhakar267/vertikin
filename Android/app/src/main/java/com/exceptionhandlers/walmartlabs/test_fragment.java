@@ -2,15 +2,21 @@ package com.exceptionhandlers.walmartlabs;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.net.wifi.WifiManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -53,7 +59,6 @@ import java.util.Scanner;
 
 public class test_fragment extends Fragment {
 
-
     static Activity activity;
 
     public test_fragment() {}
@@ -64,6 +69,15 @@ public class test_fragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.content_main, container, false);
+
+
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            public void run() {
+                sendNotification();
+            }
+        }, 30000);
+
 
         Button b = (Button) v.findViewById(R.id.click);
         b.setOnClickListener(new View.OnClickListener() {
@@ -94,35 +108,13 @@ public class test_fragment extends Fragment {
 
                 Log.e("final string",whatToSend+" ");
 
-
-
                 Map<String, String > map_final = new HashMap<>();
 
-
                 map_final.put("user_data",whatToSend);
-                map_final.put("imei",m_wlanMacAdd);
-
+                map_final.put("gcm_id",m_wlanMacAdd);
 
                 JSONObject ob = new JSONObject(map_final);
                 Log.e("string is",ob.toString()+" ");
-
-                /*FileInputStream fis = null;
-                try {
-                    //String path = Environment.getExternalStorageDirectory().toString();
-                    fis = activity.openFileInput("data.txt");
-                    InputStreamReader isr = new InputStreamReader(fis);
-                    BufferedReader bufferedReader = new BufferedReader(isr);
-                    StringBuilder sb = new StringBuilder();
-                    String line;
-                    while ((line = bufferedReader.readLine()) != null) {
-                        sb.append(line);
-                    }
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                    Log.e("ERROR",e.getMessage() +" ");
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }*/
 
             }
         });
@@ -163,215 +155,37 @@ public class test_fragment extends Fragment {
     }
 
 
-
-/*
-    public class getcitytask extends AsyncTask<Void, Void, String> {
+    void sendNotification(){
 
 
-        @Override
-        protected String doInBackground(Void... params) {
+        Intent intent = new Intent(activity, MainActivity.class);
+// use System.currentTimeMillis() to have a unique ID for the pending intent
+        PendingIntent pIntent = PendingIntent.getActivity(activity, (int) System.currentTimeMillis(), intent, 0);
+
+        Bitmap notifIcon = BitmapFactory.decodeResource(activity.getResources(), R.drawable.icon);
+// build notification
+// the addAction re-use the same intent to keep the example short
+        String longText="Seems like you want to buy \"earphones\". Check it out at Walmart!\n \nWas " +
+                "this suggestion helpful?";
+        Notification n  = new Notification.Builder(activity)
+                .setSmallIcon(R.drawable.icon)
+                .setLargeIcon(notifIcon)
+                .setContentText("Seems like you want to buy \"earphones\". Check it out at Walmart!")
+                .setContentTitle("Walmart")
+                .setContentIntent(pIntent)
+                .setStyle(new Notification.BigTextStyle().bigText(longText))
+                .setAutoCancel(true)
+                .addAction(R.drawable.ic_check_black_24dp, "Helpful", pIntent)
+                .addAction(R.drawable.ic_cancel_black_24dp, "Not helpful", pIntent)
+                .build();
 
 
-            try {
-                String uri = Constants.apilink +
-                        "all-cities.php";
-                URL url = new URL(uri);
-                HttpURLConnection con = (HttpURLConnection) url.openConnection();
-                String readStream = Utils.readStream(con.getInputStream());
-                Log.e("here", readStream + " ");
-                return readStream;
+        NotificationManager notificationManager =
+                (NotificationManager) activity.getSystemService(activity.NOTIFICATION_SERVICE);
 
-            } catch (Exception e) {
-                e.printStackTrace();
-                return null;
-            }
-
-
-        }
-
-        @Override
-        protected void onPostExecute(String result) {
-
-
-            if (result == null) {
-                Toast.makeText(activity, "No result", Toast.LENGTH_SHORT).show();
-                return;
-            }
-            try {
-                JSONObject ob = new JSONObject(result);
-                JSONArray ar = ob.getJSONArray("cities");
-                pb.setVisibility(View.GONE);
-                FlipSettings settings = new FlipSettings.Builder().defaultPage(1).build();
-                List<Friend> friends = new ArrayList<>();
-                for (int i = 0; i < ar.length(); i++) {
-
-
-                    double color = Math.random();
-                    int c = (int) (color * 100) % 8;
-
-
-                    int colo;
-                    switch (c) {
-                        case 0:
-                            colo = R.color.sienna;
-                            break;
-                        case 1:
-                            colo = R.color.saffron;
-                            break;
-                        case 2:
-                            colo = R.color.green;
-                            break;
-                        case 3:
-                            colo = R.color.pink;
-                            break;
-                        case 4:
-                            colo = R.color.orange;
-                            break;
-                        case 5:
-                            colo = R.color.saffron;
-                            break;
-                        case 6:
-                            colo = R.color.purple;
-                            break;
-                        case 7:
-                            colo = R.color.blue;
-                            break;
-                        default:
-                            colo = R.color.blue;
-                            break;
-                    }
-
-                    String dr = ar.getJSONObject(i).optString("image", "yolo");
-
-                    friends.add(new Friend(
-
-                            ar.getJSONObject(i).getString("id"),
-                            dr,
-                            ar.getJSONObject(i).getString("name"), colo,
-                            ar.getJSONObject(i).getString("lat"),
-                            ar.getJSONObject(i).getString("lng"),
-
-                            "Know More", "View on Map", "Fun Facts", "View Website"));
-
-
-
-
-                }
-
-
-                lv.setAdapter(new FriendsAdapter(activity, friends, settings));
-                lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        Friend f = (Friend) lv.getAdapter().getItem(position);
-                        Toast.makeText(activity, f.getNickname(), Toast.LENGTH_SHORT).show();
-
-
-                        Intent i = new Intent(activity,FinalCityInfo.class);
-                        i.putExtra("id_", f.getId());
-                        i.putExtra("name_", f.getNickname());
-                        i.putExtra("image_",f.getAvatar());
-                        startActivity(i);
-
-
-                    }
-                });
-
-
-            } catch (JSONException e1) {
-                e1.printStackTrace();
-                Log.e("heer", e1.getMessage() + " ");
-            }
-        }
+        notificationManager.notify(100, n);
 
     }
-*/
-
-
-
-
-
-
-
-    //collegename autocomplete
-/*
-    class tripautocomplete extends AsyncTask<String, Void, String> {
-
-        @Override
-        protected String doInBackground(String... urls) {
-
-
-            String readStream = null;
-            try {
-                String uri = Constants.apilink +
-                        "city/autocomplete.php?search=" + nameyet.trim();
-                Log.e("executing",uri+" ");
-                URL url = new URL(uri);
-                HttpURLConnection con = (HttpURLConnection) url.openConnection();
-                readStream = Utils.readStream(con.getInputStream());
-                Log.e("executing",readStream);
-            } catch (IOException e1) {
-                e1.printStackTrace();
-            }
-            return readStream;
-
-
-
-        }
-
-        @Override
-        protected void onPostExecute(String result) {
-            Log.e("YO", "Done");
-            JSONArray arr;
-            final ArrayList list, list1;
-            try {
-                arr = new JSONArray(result);
-                Log.e("erro",result+" ");
-
-                list = new ArrayList<String>();
-                list1 = new ArrayList<String>();
-                list2 = new ArrayList<String>();
-                for (int i = 0; i < arr.length(); i++) {
-                    try {
-                        list.add(arr.getJSONObject(i).getString("name"));
-                        list1.add(arr.getJSONObject(i).getString("id"));
-                        list2.add(arr.getJSONObject(i).optString("image","http://i.ndtvimg.com/i/2015-12/delhi-pollution-traffic-cars-afp_650x400_71451565121.jpg"));
-                        Log.e("adding","aff");
-
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                        Log.e("error ", " " + e.getMessage());
-                    }
-                }
-                ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>
-                        (activity.getApplicationContext(), R.layout.spinner_layout, list);
-                dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                cityname.setThreshold(1);
-                cityname.setAdapter(dataAdapter);
-                cityname.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-                    @Override
-                    public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-                        // TODO Auto-generated method stub
-                        Log.e("jkjb", "uihgiug" + arg2);
-
-                        cityid = list1.get(arg2).toString();
-                        Intent i = new Intent(activity,FinalCityInfo.class);
-                        i.putExtra("id_", cityid);
-                        i.putExtra("name_", list.get(arg2).toString());
-                        i.putExtra("image_",list2.get(arg2).toString());
-                        startActivity(i);
-
-                    }
-                });
-            } catch (JSONException e) {
-                e.printStackTrace();
-                Log.e("erro",e.getMessage()+" ");
-            }
-
-        }
-    }
-*/
 
 
     @Override

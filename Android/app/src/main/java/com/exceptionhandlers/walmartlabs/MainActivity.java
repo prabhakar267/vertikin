@@ -28,9 +28,8 @@ public class MainActivity extends AppCompatActivity
 
         Fragment fragment;
         FragmentManager fragmentManager = getSupportFragmentManager();
-        fragment = new test_fragment();
+        fragment = new category_fragment();
         fragmentManager.beginTransaction().replace(R.id.inc, fragment).commit();
-
 
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -80,12 +79,10 @@ public class MainActivity extends AppCompatActivity
         fragment = new test_fragment();
 
 
-
         if (id == R.id.nav_cat) {
-            fragment = new test_fragment();
-            // Handle the camera action
+            fragment = new category_fragment();
         } else if (id == R.id.nav_sugg) {
-            fragment = new test_fragment();
+            fragment = new suggestions_fragment();
 
         } else if (id == R.id.nav_search) {
             fragment = new search_fragment();

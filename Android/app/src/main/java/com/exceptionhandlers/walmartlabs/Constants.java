@@ -3,7 +3,7 @@ package com.exceptionhandlers.walmartlabs;
 /**
  * Created by swati on 20/8/16.
  */
-public class Constants {
+public interface Constants {
     public static final String taxonomy = "{\n" +
             "   \"categories\": [\n" +
             "      {\n" +
@@ -46,4 +46,9 @@ public class Constants {
             "      }\n" +
             "   ]\n" +
             "}";
+
+
+    public static final String PRODUCT_ID = "product_id";
+    public static final String PRODUCT_QUERY = "product_query";
+
 }
