@@ -2,32 +2,36 @@
 # @Author: prabhakar
 # @Date:   2016-08-17 22:40:37
 # @Last Modified by:   Prabhakar Gupta
-# @Last Modified time: 2016-08-18 22:39:25
+# @Last Modified time: 2016-08-20 23:55:33
 
 import nltk
 from nltk.stem.wordnet import WordNetLemmatizer
 
-from constants import NOUN_TAGS
+from constants import PROPER_NOUN_POS_TAGS
 
+lmtzr = WordNetLemmatizer()
 
 def update_dict(existing_dict, unclean_text):
-	new_dict = get_lemmatized_noun_dict(existing_dict, unclean_text)
-
-	return existing_dict
-
-def get_lemmatized_noun_dict(data_dict, unclean_text):
 	tokens = nltk.word_tokenize(unclean_text)
 	pos_tag_data = nltk.pos_tag(tokens)
 
-	for i in pos_tag_data:
-		if i[1] in NOUN_TAGS:
-			noun_word = i[0]
+	for token_tuple in pos_tag_data:
+		if token_tuple[1] in PROPER_NOUN_POS_TAGS:
+			noun_word = token_tuple[0]
 			clean_noun_word = ''.join(e for e in noun_word if e.isalnum())
+
 			lemmatized_word = lmtzr.lemmatize(clean_noun_word)
+			existing_dict = increase_score(existing_dict, lemmatized_word, 1)
 
-			data_dict = increase_score(existing_dict, lemmatized_word, 1)
-	return data_dict
+	return existing_dict
+
+def increase_score(score_dict, key, value):
+	lowercase_key = key.lower()
+	if lowercase_key in score_dict:
+		score_dict[lowercase_key] += value
+	else:
+		score_dict[lowercase_key] = value
+
+	return score_dict
 
 
-def check_prediction():
-	return

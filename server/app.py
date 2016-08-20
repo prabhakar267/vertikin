@@ -2,7 +2,7 @@
 # @Author: prabhakar
 # @Date:   2016-08-17 22:14:14
 # @Last Modified by:   Prabhakar Gupta
-# @Last Modified time: 2016-08-18 22:36:43
+# @Last Modified time: 2016-08-20 23:50:18
 
 import json
 import os.path
@@ -21,10 +21,17 @@ CORS(app)
 
 @app.route("/user", methods=['GET'])
 def main():
-	imei_num = request.args.get("imei")
-	new_data = request.args.get("user_data", "")
+	# # get data from args
+	# imei_num = request.args.get("imei")
+	# new_data = request.args.get("user_data", "")
 	# new_data = json.loads(new_data)
 
+	# get data from sample file
+	with open('sample') as data_file:    
+		data = json.load(data_file)
+
+	imei_num = data['imei']
+	new_data = data['user_data']
 
 	file_path = "user_data/" + imei_num
 
@@ -35,8 +42,6 @@ def main():
 		data_dict = update_dict({}, new_data)
 
 	pickle.dump(data_dict, open(file_path, "wb"))
-	# check_prediction(data_dict)
-
 	return json.dumps(data_dict)
 
 
