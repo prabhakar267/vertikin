@@ -4,7 +4,7 @@
 # @Last Modified by:   Prabhakar Gupta
 # @Last Modified time: 2016-08-21 01:20:13
 
-GITHUB_REPOSITORY_LINK = "https://github.com/prabhakar267/Walmart-hackathon-ki-entry"
+GITHUB_REPOSITORY_LINK = "https://github.com/prabhakar267/vertikin"
 
 PROPER_NOUN_POS_TAGS = "NNP NNPS".split(' ')
 
