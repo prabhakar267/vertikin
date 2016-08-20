@@ -37,7 +37,7 @@ public class ShowProducts extends AppCompatActivity implements Constants{
         id = i.getStringExtra(PRODUCT_ID);
         query = i.getStringExtra(PRODUCT_QUERY);
 
-        new Book_RetrieveFeed().execute();
+        new RetrieveFeed().execute();
 
         setTitle(query);
 
@@ -47,7 +47,7 @@ public class ShowProducts extends AppCompatActivity implements Constants{
     }
 
 
-    public class Book_RetrieveFeed extends AsyncTask<String, Void, String> {
+    public class RetrieveFeed extends AsyncTask<String, Void, String> {
 
 
         protected String doInBackground(String... urls) {

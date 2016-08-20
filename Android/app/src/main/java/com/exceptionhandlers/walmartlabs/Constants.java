@@ -50,5 +50,6 @@ public interface Constants {
 
     public static final String PRODUCT_ID = "product_id";
     public static final String PRODUCT_QUERY = "product_query";
+    public static final String API_LINK = "******";
 
 }
