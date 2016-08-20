@@ -2,17 +2,18 @@
 # @Author: prabhakar
 # @Date:   2016-08-17 22:40:37
 # @Last Modified by:   Prabhakar Gupta
-# @Last Modified time: 2016-08-21 01:30:51
+# @Last Modified time: 2016-08-21 02:44:15
 
 import operator
 import enchant
 import nltk
 from nltk.stem.wordnet import WordNetLemmatizer
 import requests
+from gcm import *
 
 
 from constants import PROPER_NOUN_POS_TAGS, DEFAULT_THRESHOLD
-from api_constants import WALMART_OPEN_PRODUCT_API_KEY
+from api_constants import WALMART_OPEN_PRODUCT_API_KEY, GCM_API_KEY
 
 
 lmtzr = WordNetLemmatizer()
@@ -58,7 +59,7 @@ def increase_score(score_dict, key, value):
 	return score_dict
 
 
-def check_prediction(dictionary, threshold=DEFAULT_THRESHOLD):
+def check_prediction(dictionary, threshold=DEFAULT_THRESHOLD, gcm_device_id):
 	sum_of_freq = sum(dictionary.values())
 	max_tuple = max(dictionary.iteritems(), key=operator.itemgetter(1))
 
@@ -69,5 +70,15 @@ def check_prediction(dictionary, threshold=DEFAULT_THRESHOLD):
 
 		if check_candidature(candidate_string):
 			# send GCM message
+			gcm_send(gcm_device_id, candidate_string)
+			
 
 	return dictionary
+
+
+def gcm_send(gcm_device_id, string):
+	gcm = GCM(GCM_API_KEY)
+	data = {'search_query': string}
+
+	gcm.plaintext_request(registration_id=gcm_device_id, data=data)
+
