@@ -2,7 +2,7 @@
 # @Author: prabhakar
 # @Date:   2016-08-17 22:14:14
 # @Last Modified by:   Prabhakar Gupta
-# @Last Modified time: 2016-08-21 03:07:00
+# @Last Modified time: 2016-08-21 03:07:47
 
 import json
 import os.path
@@ -22,17 +22,9 @@ CORS(app)
 
 @app.route("/update-user", methods=['GET'])
 def main():
-	# # get data from args
-	# imei_num = request.args.get("imei")
-	# new_data = request.args.get("user_data", "")
-	# new_data = json.loads(new_data)
-
-	# get data from sample file
-	with open('sample') as data_file:    
-		data = json.load(data_file)
-
-	gcm_id = data['gcm_id']
-	new_data = data['user_data']
+	# get data from args
+	gcm_id = request.args.get("gcm_id")
+	new_data = request.args.get("user_data")
 
 	file_path = "user_data/" + gcm_id
 
