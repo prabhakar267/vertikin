@@ -2,7 +2,7 @@
 # @Author: prabhakar
 # @Date:   2016-08-17 22:14:14
 # @Last Modified by:   Prabhakar Gupta
-# @Last Modified time: 2016-08-21 00:34:39
+# @Last Modified time: 2016-08-21 01:30:43
 
 import json
 import os.path
@@ -30,10 +30,10 @@ def main():
 	with open('sample') as data_file:    
 		data = json.load(data_file)
 
-	imei_num = data['imei']
+	gcm_id = data['gcm_id']
 	new_data = data['user_data']
 
-	file_path = "user_data/" + imei_num
+	file_path = "user_data/" + gcm_id
 
 	if os.path.isfile(file_path):
 		user_history = pickle.load(open(file_path, "rb"))

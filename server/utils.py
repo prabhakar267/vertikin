@@ -2,17 +2,32 @@
 # @Author: prabhakar
 # @Date:   2016-08-17 22:40:37
 # @Last Modified by:   Prabhakar Gupta
-# @Last Modified time: 2016-08-21 00:46:02
+# @Last Modified time: 2016-08-21 01:30:51
 
 import operator
 import enchant
 import nltk
 from nltk.stem.wordnet import WordNetLemmatizer
+import requests
+
 
 from constants import PROPER_NOUN_POS_TAGS, DEFAULT_THRESHOLD
+from api_constants import WALMART_OPEN_PRODUCT_API_KEY
+
 
 lmtzr = WordNetLemmatizer()
 enchant_dictionary = enchant.Dict("en_US")
+
+
+def check_candidature(query_string):
+	walmart_url = "http://api.walmartlabs.com/v1/search?apiKey={0}&query={1}".format(WALMART_OPEN_PRODUCT_API_KEY, query_string)
+	response = requests.get(walmart_url)
+	if response.ok:
+		if response.json()['totalResults'] > 0:
+			return True
+
+	return False
+
 
 def update_dict(existing_dict, unclean_text):
 	tokens = nltk.word_tokenize(unclean_text)
@@ -51,9 +66,8 @@ def check_prediction(dictionary, threshold=DEFAULT_THRESHOLD):
 	if percentage_freq >= threshold:
 		candidate_string = max_tuple[0]
 		dictionary.pop(candidate_string, None)
-		print "\n\n\n\n\n\n"
-		print candidate_string
-		print percentage_freq
-		print "\n\n\n\n\n\n"
+
+		if check_candidature(candidate_string):
+			# send GCM message
 
 	return dictionary

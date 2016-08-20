@@ -88,5 +88,9 @@ ENV/
 # Rope project settings
 .ropeproject
 
+
+
 # user_data directory
 **/user_data/
+
+api_constants.py
