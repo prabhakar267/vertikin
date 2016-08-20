@@ -2,7 +2,7 @@
 # @Author: prabhakar
 # @Date:   2016-08-17 22:40:37
 # @Last Modified by:   Prabhakar Gupta
-# @Last Modified time: 2016-08-21 02:44:15
+# @Last Modified time: 2016-08-21 02:50:53
 
 import operator
 import enchant
@@ -12,6 +12,7 @@ import requests
 from gcm import *
 
 
+from settings import DEBUG
 from constants import PROPER_NOUN_POS_TAGS, DEFAULT_THRESHOLD
 from api_constants import WALMART_OPEN_PRODUCT_API_KEY, GCM_API_KEY
 
@@ -70,7 +71,10 @@ def check_prediction(dictionary, threshold=DEFAULT_THRESHOLD, gcm_device_id):
 
 		if check_candidature(candidate_string):
 			# send GCM message
-			gcm_send(gcm_device_id, candidate_string)
+			if DEBUG:
+				print "{0} : successful candidate".format(candidate_string)
+			else:
+				gcm_send(gcm_device_id, candidate_string)
 			
 
 	return dictionary

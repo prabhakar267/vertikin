@@ -2,7 +2,7 @@
 # @Author: prabhakar
 # @Date:   2016-08-17 22:14:14
 # @Last Modified by:   Prabhakar Gupta
-# @Last Modified time: 2016-08-21 01:30:43
+# @Last Modified time: 2016-08-21 02:48:26
 
 import json
 import os.path
@@ -11,6 +11,7 @@ import pickle
 from flask import Flask, request, redirect
 from flask_cors import CORS
 
+from settings import DEBUG
 from constants import GITHUB_REPOSITORY_LINK, DEFAULT_THRESHOLD
 from utils import update_dict, check_prediction
 
