@@ -25,23 +25,11 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-
-
 
         Fragment fragment;
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragment = new test_fragment();
         fragmentManager.beginTransaction().replace(R.id.inc, fragment).commit();
-
-
 
 
 
@@ -78,12 +66,6 @@ public class MainActivity extends AppCompatActivity
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -93,19 +75,27 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
+        Fragment fragment;
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragment = new test_fragment();
+
+
+
+        if (id == R.id.nav_cat) {
+            fragment = new test_fragment();
             // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        } else if (id == R.id.nav_sugg) {
+            fragment = new test_fragment();
 
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.nav_search) {
+            fragment = new search_fragment();
 
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
+        } else if (id == R.id.nav_help) {
+            fragment = new test_fragment();
 
         }
+
+        fragmentManager.beginTransaction().replace(R.id.inc, fragment).commit();
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

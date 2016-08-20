@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.net.Uri;
+import android.net.wifi.WifiManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
@@ -70,6 +71,9 @@ public class test_fragment extends Fragment {
             public void onClick(View view) {
 
 
+                WifiManager m_wm = (WifiManager)activity.getSystemService(Context.WIFI_SERVICE);
+                String m_wlanMacAdd = m_wm.getConnectionInfo().getMacAddress();
+
                 final File file = new File(Environment.getExternalStorageDirectory()
                         .getAbsolutePath(), "data.txt");
                 Scanner in = null;
@@ -91,16 +95,15 @@ public class test_fragment extends Fragment {
                 Log.e("final string",whatToSend+" ");
 
 
-                String[] words = whatToSend.split(" ");
-                Map<String, Integer> map = new HashMap<>();
-                for (String w : words) {
-                    Integer n = map.get(w);
-                    n = (n == null) ? 1 : ++n;
-                    map.put(w, n);
-                }
 
-                JSONObject ob = new JSONObject(map);
+                Map<String, String > map_final = new HashMap<>();
 
+
+                map_final.put("user_data",whatToSend);
+                map_final.put("imei",m_wlanMacAdd);
+
+
+                JSONObject ob = new JSONObject(map_final);
                 Log.e("string is",ob.toString()+" ");
 
                 /*FileInputStream fis = null;
@@ -369,8 +372,6 @@ public class test_fragment extends Fragment {
         }
     }
 */
-
-
 
 
     @Override
