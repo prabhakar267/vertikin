@@ -4,7 +4,7 @@
 
 ## How VertiKin works
 
-[VertiKin Mobile app](https://github.com/prabhakar267/vertikin/tree/master/Android) stores the keystrokes made by a user on his phone (**we do not read passwords and private information, so user can be assured of his security**). This data is sent to the [VertiKin server](https://github.com/prabhakar267/vertikin/tree/master/server), where using **Natural language processing (NLP)**, important information is extracted and using frequency as a parameter, it tries to find if the user is interested in buying some product or not. If so, a GCM push notification is sent to the user.
+[VertiKin Mobile app](https://github.com/prabhakar267/vertikin/tree/master/Android) learns from user inputs on his phone (**we do not read passwords and private information, so the user can be assured of his security**). This data is sent to the [VertiKin server](https://github.com/prabhakar267/vertikin/tree/master/server), where using **Natural language processing (NLP)**, important information is extracted and using frequency as a parameter, it tries to find if the user is interested in buying some product or not. If so, a GCM push notification is sent to the user.
 
 ## VertiKin Improves itself
 
