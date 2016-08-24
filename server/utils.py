@@ -2,7 +2,7 @@
 # @Author: prabhakar
 # @Date:   2016-08-17 22:40:37
 # @Last Modified by:   Prabhakar Gupta
-# @Last Modified time: 2016-08-21 02:50:53
+# @Last Modified time: 2016-08-24 22:45:31
 
 import operator
 import enchant
@@ -11,11 +11,12 @@ from nltk.stem.wordnet import WordNetLemmatizer
 import requests
 from gcm import *
 
-
 from settings import DEBUG
 from constants import PROPER_NOUN_POS_TAGS, DEFAULT_THRESHOLD
 from api_constants import WALMART_OPEN_PRODUCT_API_KEY, GCM_API_KEY
 
+# append custom path for nltk corpus
+nltk.data.path.append("nltk_data/")
 
 lmtzr = WordNetLemmatizer()
 enchant_dictionary = enchant.Dict("en_US")
@@ -60,7 +61,7 @@ def increase_score(score_dict, key, value):
 	return score_dict
 
 
-def check_prediction(dictionary, threshold=DEFAULT_THRESHOLD, gcm_device_id):
+def check_prediction(dictionary, threshold, gcm_device_id):
 	sum_of_freq = sum(dictionary.values())
 	max_tuple = max(dictionary.iteritems(), key=operator.itemgetter(1))
 
