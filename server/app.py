@@ -1,8 +1,7 @@
-import json
 import os.path
 import pickle
 
-from flask import Flask, request, redirect
+from flask import Flask, request, redirect, jsonify
 from flask_cors import CORS
 
 from settings import DEBUG
@@ -42,7 +41,7 @@ def main():
 	
 	pickle.dump(user_json, open(file_path, "wb"))
 	
-	return json.dumps(data_dict)
+	return jsonify(**data_dict)
 
 
 @app.route("/change-threshold", methods=['GET'])
@@ -84,7 +83,7 @@ def page_not_found(error):
 		'docs_url' : GITHUB_REPOSITORY_LINK,
 	}
 
-	return json.dumps(response)
+	return jsonify(**response)
 
 
 if __name__ == "__main__":
