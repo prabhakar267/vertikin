@@ -1,9 +1,3 @@
-# -*- coding: utf-8 -*-
-# @Author: prabhakar
-# @Date:   2016-08-17 22:40:37
-# @Last Modified by:   Prabhakar Gupta
-# @Last Modified time: 2016-08-24 22:45:31
-
 import operator
 import enchant
 import nltk
