@@ -1,11 +1,11 @@
 import os.path
 import pickle
 
-from flask import Flask, request, redirect, jsonify
+from flask import Flask, request, jsonify
 from flask_cors import CORS
 
-from settings import DEBUG
 from constants import GITHUB_REPOSITORY_LINK, DEFAULT_THRESHOLD, THRESHOLD_DELTA
+from settings import DEBUG
 from utils import update_dict, check_prediction
 
 app = Flask(__name__)
@@ -86,4 +86,4 @@ def page_not_found(error):
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=DEBUG)
