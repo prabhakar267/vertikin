@@ -8,7 +8,7 @@ idna==2.7
 itsdangerous==0.24
 Jinja2==2.10.1
 MarkupSafe==1.0
-nltk==3.3
+nltk==3.4.5
 pyenchant==2.0.0
 requests==2.21.0
 six==1.11.0
