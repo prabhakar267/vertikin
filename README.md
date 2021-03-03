@@ -25,10 +25,3 @@ If VertiKin incorrectly gauged user interest in a product, the user can offer fe
 + [nltk](http://www.nltk.org/)
 + [Google Cloud Messaging](https://developers.google.com/cloud-messaging/)
 + [Walmart Open API](https://developer.walmartlabs.com/docs)
-
-
-## Contact Us
-
-+ **[Prabhakar Gupta](mailto:prabhakargupta267@gmail.com)**
-+ **[Swati Garg](mailto:swati.garg.nsit@gmail.com)**
-
