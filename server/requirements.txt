@@ -6,7 +6,7 @@ Flask-Cors==3.0.6
 gcm==0.3
 idna==2.7
 itsdangerous==0.24
-Jinja2==2.10.1
+Jinja2==2.11.3
 MarkupSafe==1.0
 nltk==3.4.5
 pyenchant==2.0.0
