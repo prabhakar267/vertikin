@@ -12,5 +12,5 @@ nltk==3.4.5
 pyenchant==2.0.0
 requests==2.21.0
 six==1.11.0
-urllib3==1.24.2
+urllib3==1.26.5
 Werkzeug==0.15.3
