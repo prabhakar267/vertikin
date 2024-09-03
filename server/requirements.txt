@@ -2,7 +2,7 @@ certifi==2023.7.22
 chardet==3.0.4
 Click==7.0
 Flask==2.3.2
-Flask-Cors==3.0.9
+Flask-Cors==5.0.0
 gcm==0.3
 idna==3.7
 itsdangerous==0.24
